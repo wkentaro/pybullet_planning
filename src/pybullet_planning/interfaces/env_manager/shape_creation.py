@@ -165,7 +165,7 @@ def create_body(collision_id=NULL_ID, visual_id=NULL_ID, mass=STATIC_MASS):
                              baseVisualShapeIndex=visual_id, physicsClientId=CLIENT)
 
 
-def create_box(w, l, h, mass=STATIC_MASS, color=RED):
+def create_box(w, l, h, mass=STATIC_MASS, color=RED, collision=True):
     """create a box body
 
     .. image:: ../images/box.png
@@ -191,6 +191,8 @@ def create_box(w, l, h, mass=STATIC_MASS, color=RED):
         box body index
     """
     collision_id, visual_id = create_shape(get_box_geometry(w, l, h), color=color)
+    if collision is False:
+        collision_id = -1
     return create_body(collision_id, visual_id, mass=mass)
     # basePosition | baseOrientation
     # linkCollisionShapeIndices | linkVisualShapeIndices
@@ -228,8 +230,10 @@ def create_capsule(radius, height, mass=STATIC_MASS, color=BLUE):
     return create_body(collision_id, visual_id, mass=mass)
 
 
-def create_sphere(radius, mass=STATIC_MASS, color=BLUE):
+def create_sphere(radius, mass=STATIC_MASS, color=BLUE, collision=True):
     collision_id, visual_id = create_shape(get_sphere_geometry(radius), color=color)
+    if not collision:
+        collision_id = -1
     return create_body(collision_id, visual_id, mass=mass)
 
 
